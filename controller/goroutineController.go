@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"runtime"
 	"sync"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,9 +22,7 @@ func Goroutine1(ctx *gin.Context) {
 }
 
 func Gorutine2(ctx *gin.Context) {
-	thread := runtime.GOMAXPROCS(-1)
-	// -1 = max = 8
-	fmt.Printf("Threads: %v\n", thread)
+	runtime.GOMAXPROCS(1)
 
 	for i := 0; i < 10; i++ {
 		wg.Add(2)
@@ -40,7 +37,6 @@ func Gorutine2(ctx *gin.Context) {
 func sey() {
 	fmt.Printf("Test %v\n", counter)
 	m.RUnlock()
-	time.Sleep(time.Second)
 	wg.Done()
 }
 
